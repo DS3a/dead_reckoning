@@ -202,3 +202,7 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+add_executable(dead_reckoning scripts/dead_reckoning.cpp)
+target_link_libraries(dead_reckoning ${catkin_LIBRARIES})
