@@ -76,8 +76,16 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "dead_reckoning_node");
   ros::NodeHandle nh;
 
+
+  std::string imu_topic;
+
+  if (nh.hasParam("/imu_topic")) {
+    nh.getParam("/imu_topic", imu_topic);
+  } else {
+    imu_topic = "/imu/data";
+  }
   ros::Publisher vel_pos_publisher = nh.advertise<nav_msgs::Odometry>("/pos_vel", 100);
-  ros::Subscriber imu_sub = nh.subscribe("<enter IMU topic>", 100, imu_cb);
+  ros::Subscriber imu_sub = nh.subscribe(imu_topic, 100, imu_cb);
 
   nav_msgs::Odometry odom_msg;
   odom_msg.header.stamp = ros::Time::now();
